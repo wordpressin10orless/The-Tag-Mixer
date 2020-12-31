@@ -123,6 +123,10 @@ public function tagmixerpackagespage(){
 require_once 'partials/tagmixerpackagespage.php';
 }
 
+public function register_tagmixer_general_settings(){
+	register_setting( 'tagmixersgenset', 'tagmixmasterswitch' );
+}
+
 
 
 }

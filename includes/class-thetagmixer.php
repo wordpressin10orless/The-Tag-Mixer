@@ -160,6 +160,9 @@ class TheTagMixer {
 		//add an admin menu page to the system
 		$this->loader->add_action( 'admin_menu', $plugin_admin, 'my_admin_menu' );
 
+		//register some settings for the tag mixer general settings page
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_tagmixer_general_settings' );
+
 
 
 	}
