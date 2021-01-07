@@ -90,3 +90,48 @@ if ($mainswitch == ''){
   </div>
 </div>
 </center>
+
+<hr>
+
+<center>
+
+<div class="jumbotron" style="max-width:60%;">
+  <h2 style="font-family: 'Oswald', sans-serif;">Tag Mixer Source Keys</h2>
+  <p style="font-size:16px;">This section allows you to setup "Tag Mixer Source Keys", which can be selected when you are setting up your package sets. When assigning a package set with a source key, that package will only edit page elements if it has a corrosponding tagmixkey= settings matching the source key ID parameter.</p><br>
+
+  <form>
+    <div class="form-group">
+        <label for="existingsourcekeys">Source Keys</label>
+        <select class="form-control" id="existingsourcekeys" name="existingsourcekeys">
+        <?php
+            //gather the existing source keys
+            $sourceKeys = get_posts( array('post_type' => 'tagmixersourcekeys', 'numberposts' => 3000) );
+
+            //check to see how many we have
+            if(count($sourceKeys) == 0){
+                //we have no posts
+                echo ('<option>No Source Keys Created</options>');
+            }
+        ?>
+        </select><br>
+        <input type="submit" class="btn btn-warning btn-lg" value="Delete This Source Key" />
+    </div>
+  </form>
+  <br>
+  <p style="font-size:26px;">OR</p>
+  <br>
+  <p style="font-size:24px;font-family: 'Oswald', sans-serif;">Add a new Tag Mixer Source Key</p>
+    
+    <form action="" method="post" class="alert alert-dark">
+        <div class="form-group">
+            <label for="tagmixsourcename">Source Name</label>
+            <input type="text" class="form-control" name="tagmixsourcename" id="tagmixsourcename" placeholder="Facebook"><br>
+            <label for="tagmixsourcekey">Source Key</label>
+            <input type="text" class="form-control" name="tagmixsourcekey" id="tagmixsourcekey" placeholder="fbname"><br>
+            <input type="submit" class="btn btn-success btn-lg" value="ADD This Source Key" />
+        </div>
+    </form>
+
+</div>
+
+</center>
