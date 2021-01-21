@@ -12,6 +12,60 @@
  */
 ?>
 
+
+<?php
+
+//get the PAGE
+$thecurpage = $_GET['page'];
+
+//this section checks for all page actions and acts accordingly
+
+/* THIS SECTION HANDLES ADDING NEW POSTS WITH SOURCE KEYS */
+if( isset($_GET['tagmixsourcename']) ){
+    //we need to add the new source key post
+    $data = array(
+        'post_title' => $_GET['tagmixsourcename'],
+        'post_content' => $_GET['tagmixsourcekey'],
+        'post_category' => '',
+        'tags_input' => '',
+        'post_status' => 'publish',
+        'post_type' => 'tagmixersourcekeys',
+    );
+
+    //add the new source key
+    $result = wp_insert_post( $data );
+
+}
+
+/* THIS SECTION HANDLES DELETING EXISTING KEYS */
+if( isset($_GET['existingsourcekeys']) ){
+
+    //check to see if there is an actual item then do the stuff
+    if($_GET['existingsourcekeys'] == 'No Source Keys Created'){
+        //do nothing
+    } else {
+        //this is a key we need to remove
+        $strSource = explode(' / ', $_GET['existingsourcekeys']);
+
+        $deletionKeys = get_posts( array('post_type' => 'tagmixersourcekeys', 'numberposts' => 3000) );
+
+        //find and delete the key
+        foreach($deletionKeys as $dkey){
+            //get this keys ID
+            $theID = $dkey->ID;
+
+            if($dkey->post_content == $strSource[1]){
+                //this is the item so DESTROY IT
+                wp_delete_post($theID, true);
+            }
+        }
+    }
+
+}
+
+?>
+
+
 <!-- This file should primarily consist of HTML with a little bit of PHP. -->
 <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-giJF6kkoqNQ00vy+HMDP7azOuL0xtbfIcaT9wjKHr8RbDVddVHyTfAAsrekwKmP1" crossorigin="anonymous">
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.0-beta1/dist/js/bootstrap.bundle.min.js" integrity="sha384-ygbV9kiqUc6oa4msXn9868pTtWMgiQaeYH7/t7LECLbyPA2x65Kgf80OJFdroafW" crossorigin="anonymous"></script>
@@ -99,8 +153,9 @@ if ($mainswitch == ''){
   <h2 style="font-family: 'Oswald', sans-serif;">Tag Mixer Source Keys</h2>
   <p style="font-size:16px;">This section allows you to setup "Tag Mixer Source Keys", which can be selected when you are setting up your package sets. When assigning a package set with a source key, that package will only edit page elements if it has a corrosponding tagmixkey= settings matching the source key ID parameter.</p><br>
 
-  <form>
+  <form action="" method="get">
     <div class="form-group">
+        <input type="hidden" value="<?php echo($thecurpage); ?>" name="page" />
         <label for="existingsourcekeys">Source Keys</label>
         <select class="form-control" id="existingsourcekeys" name="existingsourcekeys">
         <?php
@@ -111,6 +166,11 @@ if ($mainswitch == ''){
             if(count($sourceKeys) == 0){
                 //we have no posts
                 echo ('<option>No Source Keys Created</options>');
+            } else {
+                //loop through the source keys and ouput
+                foreach($sourceKeys as $skey){
+                    echo('<option>' . $skey->post_title . ' / ' . $skey->post_content . '</option>');
+                }
             }
         ?>
         </select><br>
@@ -122,12 +182,13 @@ if ($mainswitch == ''){
   <br>
   <p style="font-size:24px;font-family: 'Oswald', sans-serif;">Add a new Tag Mixer Source Key</p>
     
-    <form action="" method="post" class="alert alert-dark">
+    <form action="" method="get" class="alert alert-dark">
         <div class="form-group">
+            <input type="hidden" value="<?php echo($thecurpage); ?>" name="page" />
             <label for="tagmixsourcename">Source Name</label>
-            <input type="text" class="form-control" name="tagmixsourcename" id="tagmixsourcename" placeholder="Facebook"><br>
+            <input type="text" class="form-control" name="tagmixsourcename" id="tagmixsourcename" placeholder="Facebook" required><br>
             <label for="tagmixsourcekey">Source Key</label>
-            <input type="text" class="form-control" name="tagmixsourcekey" id="tagmixsourcekey" placeholder="fbname"><br>
+            <input type="text" class="form-control" name="tagmixsourcekey" id="tagmixsourcekey" placeholder="fbname" required><br>
             <input type="submit" class="btn btn-success btn-lg" value="ADD This Source Key" />
         </div>
     </form>

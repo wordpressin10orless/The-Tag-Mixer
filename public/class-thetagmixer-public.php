@@ -100,6 +100,25 @@ class TheTagMixer_Public {
         
 	}
 
+	//this is going to add our tagmixer code after the body content
+	public function tagmixeraddition($ourcontent){
+
+		//add some stuff after the content
+		//$thetagmixercode = 'Hello this is after the body content.';
+
+		//restructure the content
+		//$ourcontent = $ourcontent . $thetagmixercode;
+
+		//return the new body content
+		//return $ourcontent;
+
+	}
+
+	public function thetagmixshorty(){
+		//this is our shortcode for the tag mixer
+		echo('hello world I am the shortcode firing!');
+	}
+
     
 
 }
