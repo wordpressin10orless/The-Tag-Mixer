@@ -175,5 +175,50 @@ register_post_type( 'tagmixersourcekeys', $args );
 }
 
 
+public function tagmixer_package(){
+	 //register our custom post type for handling the packages
+	 $labels = array(
+		'name'                => _x( 'Tag Mixer Packages', 'Post Type General Name'),
+		'singular_name'       => _x( 'Tag Mixer Package', 'Post Type Singular Name'),
+		'menu_name'           => __( 'Tag Mixer Packages'),
+		'parent_item_colon'   => __( 'Parent Package'),
+		'all_items'           => __( 'All Packages'),
+		'view_item'           => __( 'View Packages'),
+		'add_new_item'        => __( 'Add New Tag Mixer Package'),
+		'add_new'             => __( 'Add New'),
+		'edit_item'           => __( 'Edit'),
+		'update_item'         => __( 'Update'),
+		'search_items'        => __( 'Search'),
+		'not_found'           => __( 'Not Found'),
+		'not_found_in_trash'  => __( 'Not found in Trash'),
+	);
+	 
+	// Set other options for Custom Post Type 
+	$args = array(
+		'label'               => __( 'tagmixerpackage'),
+		'description'         => __( 'Tag Mixer package sets.'),
+		'labels'              => $labels,
+		'supports'            => array( 'title', 'editor', 'excerpt', 'author', 'thumbnail', 'comments', 'revisions', 'custom-fields', ),
+		'hierarchical'        => false,
+		'public'              => true,
+		'show_ui'             => false,
+		'show_in_menu'        => false,
+		'show_in_nav_menus'   => false,
+		'show_in_admin_bar'   => false,
+		'menu_position'       => 6,
+		'can_export'          => false,
+		'has_archive'         => true,
+		'exclude_from_search' => true,
+		'publicly_queryable'  => false,
+		'capability_type'     => 'post',
+		'show_in_rest' => true,
+	
+	);
+	 
+	// Registering your Custom Post Type
+	register_post_type( 'tagmixerpackage', $args );
+	
+}
+
 
 }

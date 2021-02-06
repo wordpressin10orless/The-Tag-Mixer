@@ -162,6 +162,7 @@ class TheTagMixer {
 
 		//add a custom post for source keys
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'custom_tagmixer_source_key' );
+		$this->loader->add_action( 'admin_init', $plugin_admin, 'tagmixer_package' );
 
 		//register some settings for the tag mixer general settings page
 		$this->loader->add_action( 'admin_init', $plugin_admin, 'register_tagmixer_general_settings' );
