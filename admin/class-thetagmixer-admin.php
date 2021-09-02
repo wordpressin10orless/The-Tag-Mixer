@@ -125,6 +125,7 @@ require_once 'partials/tagmixerpackagespage.php';
 
 public function register_tagmixer_general_settings(){
 	register_setting( 'tagmixersgenset', 'tagmixmasterswitch' );
+	register_setting( 'tagmixersgenset', 'tagmixshortorall');
 }
 
 public function custom_tagmixer_source_key(){

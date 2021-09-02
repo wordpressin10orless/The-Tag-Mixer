@@ -187,6 +187,7 @@ class TheTagMixer {
 
 		//add a content filter
 		$this->loader->add_filter( 'the_content', $plugin_public, 'tagmixeraddition' );
+		$this->loader->add_action( 'wp_footer', $plugin_public, 'tagmixfooter' );
 
 		//add a shortcode with tagmixer tags
 		$this->loader->add_shortcode( 'tagmixeradder', $plugin_public, 'thetagmixshorty' );

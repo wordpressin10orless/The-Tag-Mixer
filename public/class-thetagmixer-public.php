@@ -115,10 +115,69 @@ class TheTagMixer_Public {
 	}
 
 	public function thetagmixshorty(){
-		//this is our shortcode for the tag mixer
-		echo('hello world I am the shortcode firing!');
+
+
+		//global check for option set to shortcode
+		//if user set to shortcode OUTPUT AS SHORTCODE
+		$strUsingShort = get_option( 'tagmixshortorall' );
+
+		if ($strUsingShort !== ''){
+
+					    //get all the posts
+						$thePackages = get_posts( array('post_type' => 'tagmixerpackage', 'numberposts' => 3000) );
+
+						//get the current unique package key
+						$strNeedle = 'iJBwwwN8ISkO';
+						
+						//loop through and find the post that contains this key and delete
+						foreach($thePackages as $expkey){
+							$strLoc = strpos($expkey->post_content, $strNeedle);
+						
+							//check if this is the post
+							if($strLoc !== false){
+								$strGetMetaData = get_post_meta($expkey->ID, 'curpackagerules', true);
+								echo('<script>');
+								echo($strGetMetaData);
+								echo('</script>');
+							}
+						}
+
+		}
+
 	}
 
+	public function tagmixfooter(){
+		//adds our code to the footer
+
+
+		//global check for option set to shortcode
+		//if user set to shortcode DO NOT ADD TO THE FOOTER
+		$strUsingShort = get_option( 'tagmixshortorall' );
+
+		if ($strUsingShort == ''){
+
+		    //get all the posts
+			$thePackages = get_posts( array('post_type' => 'tagmixerpackage', 'numberposts' => 3000) );
+
+			//get the current unique package key
+			$strNeedle = 'iJBwwwN8ISkO';
+			
+			//loop through and find the post that contains this key and delete
+			foreach($thePackages as $expkey){
+				$strLoc = strpos($expkey->post_content, $strNeedle);
+			
+				//check if this is the post
+				if($strLoc !== false){
+					$strGetMetaData = get_post_meta($expkey->ID, 'curpackagerules', true);
+					echo('<script>');
+					echo($strGetMetaData);
+					echo('</script>');
+				}
+			}
+
+		}
+
+	}
     
 
 }

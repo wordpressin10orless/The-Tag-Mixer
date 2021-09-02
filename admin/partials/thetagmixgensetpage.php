@@ -78,6 +78,7 @@ if( isset($_GET['existingsourcekeys']) ){
 <?php
 
 $mainswitch = get_option( 'tagmixmasterswitch' );
+$shortorsite = get_option( 'tagmixshortorall' );
 
 if ($mainswitch == ''){
     //switch is off so set some classes and text
@@ -136,7 +137,9 @@ if ($mainswitch == ''){
         settings_fields('tagmixersgenset');
         do_settings_sections('tagmixersgenset');
         ?>
-        <input name="tagmixmasterswitch" <?php if($mainswitch == ''){}else{echo('checked');} ?> type="checkbox" data-toggle="toggle" data-on="Party <br>Time" data-off="Not Party Time" data-onstyle="success" data-offstyle="danger">
+        <input name="tagmixmasterswitch" <?php if($mainswitch == ''){}else{echo('checked');} ?> type="checkbox" data-toggle="toggle" data-on="Party <br>Time" data-off="Not Party Time" data-onstyle="success" data-offstyle="danger"><br><br>
+        <label for="tagmixshortorall" style="font-size:20px;color:#000;"><strong>Use a shortcode on selected pages, or use sitewide?<br>If a shortcode is selected, here is your shortcode: [tagmixeradder]</strong></label><br>
+        <input name="tagmixshortorall" <?php if($shortorsite == ''){}else{echo('checked');} ?> type="checkbox" data-toggle="toggle" data-on="Short <br>Code" data-off="Site <br>Wide" data-onstyle="success" data-offstyle="danger">
         <br><br>
         <input type="submit" style="font-size:28px;" class="btn btn-success" value="Save Changes" />
     </form>
